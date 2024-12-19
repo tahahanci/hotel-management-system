@@ -2,8 +2,10 @@ package com.hancidev.hotelmanagementsystem.service.impl;
 
 import com.hancidev.hotelmanagementsystem.dto.CustomerDto;
 import com.hancidev.hotelmanagementsystem.dto.response.CustomerResponse;
+import com.hancidev.hotelmanagementsystem.dto.response.CustomerUpdateRequest;
 import com.hancidev.hotelmanagementsystem.entity.Customer;
 import com.hancidev.hotelmanagementsystem.exception.CustomerAlreadyExistException;
+import com.hancidev.hotelmanagementsystem.exception.CustomerNotFoundException;
 import com.hancidev.hotelmanagementsystem.repository.CustomerRepository;
 import com.hancidev.hotelmanagementsystem.service.CustomerService;
 import com.hancidev.hotelmanagementsystem.service.mapper.CustomerMapper;
@@ -27,6 +29,24 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = customerRepository.save(customerMapper.customerFromCustomerDto(customerDto));
+        return customerMapper.customerResponseFromCustomer(customer);
+    }
+
+    @Override
+    public CustomerResponse updateCustomer(String mail, CustomerUpdateRequest request) {
+        Customer customer = customerRepository.findCustomerByMailAddress(mail)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer does not exist with given mail: " + mail));
+        customer.setFirstName(request.firstName());
+        customer.setLastName(request.lastName());
+        customer.setMailAddress(request.mailAddress());
+        customerRepository.save(customer);
+        return customerMapper.customerResponseFromCustomer(customer);
+    }
+
+    @Override
+    public CustomerResponse findCustomer(String customerId) {
+        Customer customer = customerRepository.findCustomerByCustomerId(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer does not exist with given ID: " + customerId));
         return customerMapper.customerResponseFromCustomer(customer);
     }
 }
