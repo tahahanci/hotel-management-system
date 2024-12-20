@@ -16,6 +16,7 @@ public class CustomerMapper {
                 .firstName(customerDto.firstName())
                 .lastName(customerDto.lastName())
                 .mailAddress(customerDto.mailAddress())
+                .gender(customerDto.gender())
                 .build();
     }
 
@@ -25,6 +26,7 @@ public class CustomerMapper {
                 .firstName(customer.getFirstName())
                 .lastName(customer.getLastName())
                 .mailAddress(customer.getMailAddress())
+                .isActive(customer.isActive())
                 .build();
     }
 }
