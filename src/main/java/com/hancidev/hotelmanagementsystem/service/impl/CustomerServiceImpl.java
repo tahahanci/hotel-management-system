@@ -12,6 +12,7 @@ import com.hancidev.hotelmanagementsystem.service.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -48,5 +49,22 @@ public class CustomerServiceImpl implements CustomerService {
         Customer customer = customerRepository.findCustomerByCustomerId(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException("Customer does not exist with given ID: " + customerId));
         return customerMapper.customerResponseFromCustomer(customer);
+    }
+
+    @Override
+    public CustomerResponse deleteCustomer(String customerId) {
+        Customer customer = customerRepository.findCustomerByCustomerId(customerId)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer does not exist with given ID: " + customerId));
+        customer.setActive(false);
+        customerRepository.save(customer);
+        return customerMapper.customerResponseFromCustomer(customer);
+    }
+
+    @Override
+    public List<CustomerResponse> showActiveCustomers() {
+        return customerRepository.getCustomersByActive(true)
+                .stream()
+                .map(customerMapper::customerResponseFromCustomer)
+                .toList();
     }
 }
