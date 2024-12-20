@@ -129,4 +129,35 @@ class CustomerServiceTest {
         verify(customerRepository).findCustomerByCustomerId(customerId);
         verify(customerMapper, never()).customerResponseFromCustomer(customer);
     }
+
+    @Test
+    void shouldDeleteCustomer_IfCustomerExist() {
+        String customerId = "A-12345";
+        when(customerRepository.findCustomerByCustomerId(customerId))
+                .thenReturn(Optional.of(customer));
+        when(customerMapper.customerResponseFromCustomer(customer)).thenReturn(customerResponse);
+
+        CustomerResponse actualResponse = customerService.deleteCustomer(customerId);
+
+        assertThat(actualResponse)
+                .isNotNull()
+                .usingRecursiveComparison()
+                .isEqualTo(customerResponse);
+
+        verify(customerRepository).findCustomerByCustomerId(customerId);
+        verify(customerMapper).customerResponseFromCustomer(customer);
+    }
+
+    @Test
+    void shouldThrowCustomerNotFoundException_IfCustomerDoesNotExist() {
+        String customerId = "ALM1234";
+
+        when(customerRepository.findCustomerByCustomerId(customerId)).thenReturn(Optional.empty());
+        assertThatThrownBy(() -> customerService.deleteCustomer(customerId))
+                .isInstanceOf(CustomerNotFoundException.class)
+                .hasMessageContaining("Customer does not exist with given ID: " + customerId);
+
+        verify(customerRepository).findCustomerByCustomerId(customerId);
+        verify(customerMapper, never()).customerResponseFromCustomer(customer);
+    }
 }
