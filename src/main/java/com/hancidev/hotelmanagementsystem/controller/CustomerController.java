@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/customers")
 @RequiredArgsConstructor
@@ -29,5 +31,15 @@ public class CustomerController {
     @GetMapping("/find/{customerId}")
     public ResponseEntity<CustomerResponse> findCustomer(@PathVariable String customerId) {
         return ResponseEntity.ok(customerService.findCustomer(customerId));
+    }
+
+    @DeleteMapping("/delete/{customerId}")
+    public ResponseEntity<CustomerResponse> deleteCustomer(@PathVariable String customerId) {
+        return ResponseEntity.ok(customerService.deleteCustomer(customerId));
+    }
+
+    @GetMapping("/active")
+    public ResponseEntity<List<CustomerResponse>> showActiveCustomers() {
+        return ResponseEntity.ok(customerService.showActiveCustomers());
     }
 }
