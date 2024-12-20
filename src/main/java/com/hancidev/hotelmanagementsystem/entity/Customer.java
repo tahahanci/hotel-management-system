@@ -1,9 +1,7 @@
 package com.hancidev.hotelmanagementsystem.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.hancidev.hotelmanagementsystem.entity.enums.Gender;
+import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
@@ -21,4 +19,13 @@ public class Customer {
     private String firstName;
     private String lastName;
     private String mailAddress;
+    private boolean active;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @PrePersist
+    public void setActivationStatus() {
+        active = true;
+    }
 }
