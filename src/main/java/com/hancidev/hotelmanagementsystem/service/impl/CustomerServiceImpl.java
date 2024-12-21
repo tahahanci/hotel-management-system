@@ -2,7 +2,7 @@ package com.hancidev.hotelmanagementsystem.service.impl;
 
 import com.hancidev.hotelmanagementsystem.dto.CustomerDto;
 import com.hancidev.hotelmanagementsystem.dto.response.CustomerResponse;
-import com.hancidev.hotelmanagementsystem.dto.response.CustomerUpdateRequest;
+import com.hancidev.hotelmanagementsystem.dto.CustomerUpdateRequest;
 import com.hancidev.hotelmanagementsystem.entity.Customer;
 import com.hancidev.hotelmanagementsystem.exception.CustomerAlreadyExistException;
 import com.hancidev.hotelmanagementsystem.exception.CustomerNotFoundException;

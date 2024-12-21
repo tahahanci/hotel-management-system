@@ -2,7 +2,7 @@ package com.hancidev.hotelmanagementsystem.controller;
 
 import com.hancidev.hotelmanagementsystem.dto.CustomerDto;
 import com.hancidev.hotelmanagementsystem.dto.response.CustomerResponse;
-import com.hancidev.hotelmanagementsystem.dto.response.CustomerUpdateRequest;
+import com.hancidev.hotelmanagementsystem.dto.CustomerUpdateRequest;
 import com.hancidev.hotelmanagementsystem.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

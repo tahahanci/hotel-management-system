@@ -2,8 +2,7 @@ package com.hancidev.hotelmanagementsystem.service;
 
 import com.hancidev.hotelmanagementsystem.dto.CustomerDto;
 import com.hancidev.hotelmanagementsystem.dto.response.CustomerResponse;
-import com.hancidev.hotelmanagementsystem.dto.response.CustomerUpdateRequest;
-import com.hancidev.hotelmanagementsystem.dto.response.GenderDistributionResponse;
+import com.hancidev.hotelmanagementsystem.dto.CustomerUpdateRequest;
 
 import java.util.List;
 
